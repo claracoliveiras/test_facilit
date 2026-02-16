@@ -8,8 +8,10 @@ class EventoBase(BaseModel):
     data_inicio: date
     data_fim: date
     evento: str
+    departamento: str
     descricao: str
-    engajamento: int
+    engajamento: int | None = None
+    alcance: int | None = None
     status: str
 
     @model_validator(mode="after")
