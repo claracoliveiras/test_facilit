@@ -1,0 +1,712 @@
+{
+  "name": "Migração de dados",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1KeEF47VXCXO-eZpxhFG8Ye3gNRG3qwUSjES2kZ-_Xeo",
+          "mode": "list",
+          "cachedResultName": "Agenda Ia",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KeEF47VXCXO-eZpxhFG8Ye3gNRG3qwUSjES2kZ-_Xeo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Agenda IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KeEF47VXCXO-eZpxhFG8Ye3gNRG3qwUSjES2kZ-_Xeo/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f3787146-c1af-454f-81dc-b4a712758719",
+      "name": "Agenda IA",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tSRge5902eHGb330",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1UNROt8uGtCsr1TIsSJ8hC1ZVDQ_4_pXnVzg4mlLPasA",
+          "mode": "list",
+          "cachedResultName": "AGENDA MARKETING",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UNROt8uGtCsr1TIsSJ8hC1ZVDQ_4_pXnVzg4mlLPasA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "MKT",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UNROt8uGtCsr1TIsSJ8hC1ZVDQ_4_pXnVzg4mlLPasA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        160
+      ],
+      "id": "e652a9b5-86f4-47fa-affa-d9196044dda4",
+      "name": "Agenda Marketing",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tSRge5902eHGb330",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OjisMsyH_xSJPmFq43mbC-_IX-w02VjAiUkea6-ovcw",
+          "mode": "list",
+          "cachedResultName": "Agenda RH",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OjisMsyH_xSJPmFq43mbC-_IX-w02VjAiUkea6-ovcw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "RECURSOS HUMANOS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OjisMsyH_xSJPmFq43mbC-_IX-w02VjAiUkea6-ovcw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        336
+      ],
+      "id": "68b65d85-4aed-4cfa-92db-f3e6ad4e1692",
+      "name": "Agenda RH",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tSRge5902eHGb330",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        640,
+        144
+      ],
+      "id": "59d0ffff-098e-4972-ae7c-5f31cab2a874",
+      "name": "Merge"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        160
+      ],
+      "id": "3a04f6ce-f3a4-4c08-a1f6-d0352392138e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e153c0de-b269-4bc7-8c05-38b85ed3d346",
+              "name": "departamento",
+              "value": "Marketing",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        160
+      ],
+      "id": "515cc07b-0b5a-4d7f-96a3-ce31804a8b43",
+      "name": "Definir departamento - Marketing"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e153c0de-b269-4bc7-8c05-38b85ed3d346",
+              "name": "departamento",
+              "value": "RH",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        336
+      ],
+      "id": "cf669d63-a88d-4bc6-9f33-90bb3e243ef5",
+      "name": "Definir departamento - RH"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e153c0de-b269-4bc7-8c05-38b85ed3d346",
+              "name": "departamento",
+              "value": "IA",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c4712437-38ce-4384-9ab0-175a0fa8bfe1",
+      "name": "Definir departamento - IA"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6f856426-d9f2-4fb7-ab82-1e74f097b47b",
+              "leftValue": "={{ $json.Evento }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        848,
+        160
+      ],
+      "id": "8e5302dd-81ef-40ba-891f-957cf6408d56",
+      "name": "Se existe nome do evento"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/eventos",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ $('Formata e retorna as datas no formato correto').item.json.data_inicio }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ $('Formata e retorna as datas no formato correto').item.json.data_fim }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ $('Se existe nome do evento').item.json.Evento }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ $('Se existe nome do evento').item.json['Descrição'] }}"
+            },
+            {
+              "name": "engajamento",
+              "value": "={{ $('Se existe nome do evento').item.json.Engajamento }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ $('Se existe nome do evento').item.json.STATUS }}"
+            },
+            {
+              "name": "departamento",
+              "value": "={{ $('Se existe nome do evento').item.json.departamento }}"
+            },
+            {
+              "name": "alcance",
+              "value": "={{ $('Se existe nome do evento').item.json.ALCANCE }}"
+            },
+            {
+              "name": "periodicidade",
+              "value": "={{ $json.periodicidade }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1568,
+        64
+      ],
+      "id": "80879ec6-55f3-4824-a7d1-76bcf66e7e03",
+      "name": "Criar no banco de dados"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const raw = $('Merge').first().json['Data/Anual'];\n\nfunction brToIso(dateStr) {\n  const m = String(dateStr).trim().match(/^(\\d{2})\\/(\\d{2})\\/(\\d{4})$/);\n  if (!m) return null;\n  const [, dd, mm, yyyy] = m;\n  return `${yyyy}-${mm}-${dd}`;\n}\n\nconst text = String(raw ?? '').trim();\nconst parts = text.split(/\\s*à\\s*/i).map(s => s.trim()).filter(Boolean);\n\nconst data_inicio = parts[0] ? brToIso(parts[0]) : null;\nconst data_fim = parts[1] ? brToIso(parts[1]) : null;\n\nreturn {\n  json: {\n    data_inicio,\n    data_fim\n  },\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        64
+      ],
+      "id": "cfffc613-054b-4639-91f0-4ef230216ac4",
+      "name": "Formata e retorna as datas no formato correto"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const raw = $('Merge').item.json['Data/Anual'];\nconst text = String(raw ?? '').trim();\n\nconst m = text.match(/\\(\\s*(Trimestral|Mensal|Semestral)\\s*\\)/i);\n\nconst periodicidade = m ? m[1] : \"\";\n\nreturn {\n  json: {\n    periodicidade,\n  },\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        64
+      ],
+      "id": "c8cb259a-456b-4913-9f4d-35e9eabd3d82",
+      "name": "Extrai a periodicidade se existir"
+    }
+  ],
+  "pinData": {
+    "Merge": [
+      {
+        "json": {
+          "row_number": 2,
+          "Data/Anual": "01/05/2025 à 31/07/2025",
+          "Evento": "Desafio IA Facilit",
+          "Descrição": "Apresentação de ideias ",
+          "Engajamento": 920,
+          "STATUS": "Concluído",
+          "departamento": "IA"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "row_number": 3,
+          "Data/Anual": "01/05/2025 à 31/07/2025",
+          "Evento": "Conexão Facilit.IA",
+          "Descrição": "Evento de networking para profissionais",
+          "Engajamento": 890,
+          "STATUS": "Concluído",
+          "departamento": "IA"
+        },
+        "pairedItem": {
+          "item": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 4,
+          "Data/Anual": "01/05/2025 à 31/07/2025",
+          "Evento": "Facilit.AI Talks",
+          "Descrição": "Palestras dinâmicas",
+          "Engajamento": 1150,
+          "STATUS": "Concluído",
+          "departamento": "IA"
+        },
+        "pairedItem": {
+          "item": 2
+        }
+      },
+      {
+        "json": {
+          "row_number": 2,
+          "Data/Anual": "23/06/2022 à 30/06/2022 ",
+          "Evento": "Campanha \"Conteúdo que Conecta\"",
+          "Descrição": " Iniciativa para aumentar o engajamento com a comunidade",
+          "STATUS": "Concluído",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 0,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 3,
+          "Data/Anual": "02/05/2025",
+          "Evento": "Wiki Facilit",
+          "Descrição": "Inauguração do site intitucional.",
+          "STATUS": "Concluído",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 1,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 4,
+          "Data/Anual": "01/01/2025 à 31/03/2025 (Trimestral)",
+          "Evento": "Análise de Desempenho e Metas Q1",
+          "Descrição": "Reunião para avaliar as métricas do primeiro trimestre.",
+          "STATUS": "Concluído",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 2,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 5,
+          "Data/Anual": "01/08/2025 à 31/12/2025 (Semestral)",
+          "Evento": "Otimização de Anúncios Pagos",
+          "Descrição": "Estratégia interna focada em otimizar campanhas de tráfego pago",
+          "STATUS": "Em andamento",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 3,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 6,
+          "Data/Anual": "",
+          "Evento": "",
+          "Descrição": "",
+          "STATUS": "Concluído",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 4,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 7,
+          "Data/Anual": "01/05/2025 à 31/07/2025",
+          "Evento": "Planejamento Estratégico 2026",
+          "Descrição": "Finalização dos projetos de 2025 e crição de plano estratégico para 2026",
+          "STATUS": "Concluído",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 5,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 8,
+          "Data/Anual": "01/03/2025 à 31/06/2025 (Trimestral)",
+          "Evento": "Análise de Desempenho e Metas Q1",
+          "Descrição": "Reunião para avaliar as métricas do primeiro trimestre.",
+          "STATUS": "Concluído",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 6,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 9,
+          "Data/Anual": "01/07/2025 à 31/10/2025 (Trimestral)",
+          "Evento": "Análise de Desempenho e Metas Q1",
+          "Descrição": "Reunião para avaliar as métricas do primeiro trimestre.",
+          "STATUS": "Em andamento",
+          "departamento": "Marketing"
+        },
+        "pairedItem": {
+          "item": 7,
+          "input": 1
+        }
+      },
+      {
+        "json": {
+          "row_number": 2,
+          "Data/Anual": "10/09/2025 à 11/09/2025",
+          "Evento": "Facilit Comunica",
+          "Descrição": "Apresentação de Cases de sucesso",
+          "ALCANCE": 200,
+          "STATUS": "Não iniciado",
+          "departamento": "RH"
+        },
+        "pairedItem": {
+          "item": 0,
+          "input": 2
+        }
+      },
+      {
+        "json": {
+          "row_number": 3,
+          "Data/Anual": "01/05/2025 à 31/07/2025",
+          "Evento": "Facilit em Ação: Multiplicando conhecimento para os nossos colaboradores.",
+          "Descrição": "Campanha EDUCATIVA",
+          "ALCANCE": 1055,
+          "STATUS": "Concluído",
+          "departamento": "RH"
+        },
+        "pairedItem": {
+          "item": 1,
+          "input": 2
+        }
+      },
+      {
+        "json": {
+          "row_number": 4,
+          "Data/Anual": "01/01/2025 à 31/12/2025",
+          "Evento": "Gente conectada",
+          "Descrição": "Conexão/bate-papo entre colaboradores",
+          "ALCANCE": 465,
+          "STATUS": "Em andamento",
+          "departamento": "RH"
+        },
+        "pairedItem": {
+          "item": 2,
+          "input": 2
+        }
+      },
+      {
+        "json": {
+          "row_number": 5,
+          "Data/Anual": "01/05/2025 à 31/08/2025",
+          "Evento": "Recrutamento Inteligente Facilit",
+          "Descrição": "Plano de AÇÃO",
+          "ALCANCE": 1150,
+          "STATUS": "Em andamento",
+          "departamento": "RH"
+        },
+        "pairedItem": {
+          "item": 3,
+          "input": 2
+        }
+      },
+      {
+        "json": {
+          "row_number": 6,
+          "Data/Anual": "15/08/2025 à 31/08/2025",
+          "Evento": "Pesquisa de satisfação",
+          "Descrição": "Campanha great place to work ",
+          "ALCANCE": 500,
+          "STATUS": "Não iniciado",
+          "departamento": "RH"
+        },
+        "pairedItem": {
+          "item": 4,
+          "input": 2
+        }
+      },
+      {
+        "json": {
+          "row_number": 7,
+          "Data/Anual": "04/05/2025",
+          "Evento": "RH Ágil com Facilit: Descomplicando a Gestão de Pessoas",
+          "Descrição": "Palestra ",
+          "ALCANCE": 400,
+          "STATUS": "Concluído",
+          "departamento": "RH"
+        },
+        "pairedItem": {
+          "item": 5,
+          "input": 2
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Agenda IA": {
+      "main": [
+        [
+          {
+            "node": "Definir departamento - IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agenda Marketing": {
+      "main": [
+        [
+          {
+            "node": "Definir departamento - Marketing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agenda RH": {
+      "main": [
+        [
+          {
+            "node": "Definir departamento - RH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Agenda IA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Agenda Marketing",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Agenda RH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Se existe nome do evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Definir departamento - Marketing": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Definir departamento - RH": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Definir departamento - IA": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Se existe nome do evento": {
+      "main": [
+        [
+          {
+            "node": "Formata e retorna as datas no formato correto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formata e retorna as datas no formato correto": {
+      "main": [
+        [
+          {
+            "node": "Extrai a periodicidade se existir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrai a periodicidade se existir": {
+      "main": [
+        [
+          {
+            "node": "Criar no banco de dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "9744106e-a4ad-45af-8df0-c59106bf6cb6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2603c76136d65e7785bad65d8ec39b99360d92abed6c6402d64db0016b673f06"
+  },
+  "id": "UAmSRbzar1rrWXzd",
+  "tags": []
+}

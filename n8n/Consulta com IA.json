@@ -1,0 +1,315 @@
+{
+  "name": "Consulta com IA",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "consulta-com-ia",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5d2b6ff8-b970-4b08-affd-735866698796",
+      "name": "Webhook",
+      "webhookId": "ce54675c-c90a-45bd-8769-19ed7295215f"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query.mensagem }}",
+        "options": {
+          "systemMessage": "=# Prompt — Agente de Eventos da Facilit\n\nVocê é um **Agente de Eventos da Facilit**. Sua responsabilidade exclusiva é **checar, atualizar e criar eventos em andamento** da Facilit utilizando as ferramentas (tools) disponíveis.\n\n## Escopo obrigatório\nVocê deve atuar **somente** em solicitações relacionadas a eventos da Facilit, incluindo:\n- Checar eventos em andamento.\n- Atualizar eventos em andamento.\n- Criar eventos (quando solicitado).\n\n## Estilo de resposta (conciso e amigável)\n- Seja **conciso**, porém **amigável e atencioso**.\n- **Não ofereça informações adicionais** além do que foi perguntado.\n- Só inclua contexto extra quando for **indispensável** para executar a ação solicitada (ex.: falta de informação mínima, inconsistência que bloqueia a atualização/criação).\n- Se existirem detalhes extras úteis, **não os inclua automaticamente**; aguarde o usuário solicitar.\n\n## Linguagem e apresentação (evitar estruturas de dados)\n- Ao retornar informações, use **sempre linguagem amigável e clara**.\n- **Evite expor estruturas de dados** (JSON, listas técnicas de campos, dumps, chaves/valores brutos).\n- Converta retornos das tools em **texto natural** e **resumo humano**.\n- Só mostre dados brutos se o usuário pedir explicitamente (ex.: “me mostre o JSON”).\n\n## Regra de restrição de assunto (muito importante)\nVocê **não pode** responder perguntas ou puxar assunto sobre temas que não sejam eventos.\n\nSe a solicitação não for sobre eventos, responda **somente**:\n> “Posso ajudar exclusivamente com assuntos relacionados aos eventos da Facilit. Se desejar, descreva o evento e a ação necessária (checar, atualizar ou criar).”\n\n## Fluxo de trabalho\n1. Identifique a intenção do usuário: **checar**, **atualizar** ou **criar**.\n2. Utilize as **tools** para obter/registrar/alterar informações do evento.\n3. Se faltar informação mínima, faça **perguntas curtas e diretas**.\n4. Execute a ação e responda somente com o necessário, de forma amigável.\n\n## Formato padrão de resposta\n- **Ação executada**\n- **Resultado (1–3 frases, amigável e direto)**\n- **Pendência (apenas se bloquear a ação)**\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0c19e3c6-1795-4c23-9897-76507e7863f6",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "49829f37-d842-4518-9c5a-fe4af41ca615",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "QdTDpRfoBYx9Wm6Q",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.query.chatid }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "ff6b090e-c268-474d-92da-f922e556506b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Cria um novo evento no banco de dados. Deve coletar as informações uma por uma no chat, priorizando sempre linguagem amigável e profissional.",
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/eventos",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `A data de início do evento em formato YYYY-MM-DD. `, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `A data de finalização do evento em formato YYYY-MM-DD. `, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `O nome do evento a ser criado.`, 'string') }}"
+            },
+            {
+              "name": "periodicidade",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `Deve aceitar somente valores \"Semestral\", \"Mensal\" ou \"Trimestral\". Caso não seja especificada periodicidade, deixar vazio.`, 'string') }}"
+            },
+            {
+              "name": "departamento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `Nome do departamento do qual o evento faz parte.`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `A descrição do evento.`, 'string') }}"
+            },
+            {
+              "name": "engajamento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters6_Value', `Um integer utilizado somente para o departamento de Marketing.`, 'string') }}"
+            },
+            {
+              "name": "alcance",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters7_Value', `Um integer utilizado somente para eventos do Departamento de RH.`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters8_Value', `Status do evento, comporta apenas valores \"Em andamento\" e \"Concluído\".`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        528,
+        416
+      ],
+      "id": "8ca3ee0c-39cf-4c32-a5e1-2a0db8136851",
+      "name": "Inserir evento no banco"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Lista as informações de eventos registrados no banco de dados. Deve ser utilizado para buscar ",
+        "url": "http://host.docker.internal:8000/eventos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        352,
+        416
+      ],
+      "id": "28bc5706-0f6c-4a33-8d5a-881e1c9a2f63",
+      "name": "Ler eventos do banco"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Atualiza as informações dentro de um evento com o ID especificado. Todas as informações são opcionais, com exceção do ID, e a tool deve atualizar pelo menos uma informação dentre os parâmetros para ser executada. A tool deve coletar todas as informações necessárias com o cliente por meio de perguntas no chat.",
+        "method": "PUT",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', `URL deve iniciar com http://host.docker.internal:8000/eventos/ e, no fim, adicionar o ID na url que deve ser coletado utilizando a tool de listagem e filtrando de acordo com o nome do evento mencionado.`, 'string') }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `A data de início do evento como yyyy-mm-dd. Caso não seja especificado no contexto, reenviar a data já existente do evento encontrado.`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `A data de finalização do evento como yyyy-mm-dd. Caso não seja especificado no contexto, reenviar a data já existente do evento encontrado.`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `O nome do evento a ser enviado.`, 'string') }}"
+            },
+            {
+              "name": "periodicidade",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `Deve aceitar somente valores \"Semestral\", \"Mensal\" ou \"Trimestral\". Caso não seja especificada periodicidade, deixar vazio.`, 'string') }}"
+            },
+            {
+              "name": "departamento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `Nome do departamento do qual o evento faz parte.`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `A descrição do evento.`, 'string') }}"
+            },
+            {
+              "name": "engajamento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters6_Value', `Um integer utilizado somente para o departamento de Marketing.`, 'string') }}"
+            },
+            {
+              "name": "alcance",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters7_Value', `Um integer utilizado somente para eventos do Departamento de RH.`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters8_Value', `Status do evento, comporta apenas valores \"Em andamento\" e \"Concluído\".`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        688,
+        416
+      ],
+      "id": "12a6f6ac-d701-46cd-b657-77c4e4bc7106",
+      "name": "Editar evento no banco"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        560,
+        0
+      ],
+      "id": "6ccf29c4-dd98-441c-9975-28444e27d268",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inserir evento no banco": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler eventos do banco": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Editar evento no banco": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "253eb27d-bfac-4e49-aa56-caf1bc43d9fe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2603c76136d65e7785bad65d8ec39b99360d92abed6c6402d64db0016b673f06"
+  },
+  "id": "IdbX2mQ2lgithKuJ",
+  "tags": []
+}
