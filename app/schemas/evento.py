@@ -8,6 +8,7 @@ class EventoBase(BaseModel):
     data_inicio: date
     data_fim: date
     evento: str
+    periodicidade: str
     departamento: str
     descricao: str
     engajamento: int | None = None

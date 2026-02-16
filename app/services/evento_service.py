@@ -13,6 +13,7 @@ def criar_evento(db: Session, payload: EventoCreate) -> Evento:
             data_inicio=payload.data_inicio,
             data_fim=payload.data_fim,
             evento=payload.evento,
+            periodicidade=payload.periodicidade,
             departamento=payload.departamento,
             descricao=payload.descricao,
             engajamento=payload.engajamento,
@@ -51,6 +52,7 @@ def atualizar_evento(db: Session, evento_id: UUID, payload: EventoUpdate) -> Eve
         db_evento.data_inicio = payload.data_inicio
         db_evento.data_fim = payload.data_fim
         db_evento.evento = payload.evento
+        db_evento.periodicidade = payload.periodicidade
         db_evento.departamento = payload.departamento
         db_evento.descricao = payload.descricao
         db_evento.engajamento = payload.engajamento

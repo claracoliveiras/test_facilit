@@ -18,6 +18,7 @@ class Evento(Base):
     data_inicio = Column(Date, nullable=False)
     data_fim = Column(Date, nullable=False)
     evento = Column(String(120), nullable=False)
+    periodicidade = Column(String(50), nullable=False)
     departamento = Column(String(120), nullable=False)
     descricao = Column(String(255), nullable=False)
     engajamento = Column(Integer, nullable=True)
